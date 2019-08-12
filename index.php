@@ -1,7 +1,7 @@
 <?php
 
-    $user_id = 1
-    $content = htmlentities( $_POST[ 'content'] )
+    $user_id = 1;
+    $content = htmlentities( $_POST[ 'content' ] );
 
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare( '' );
@@ -28,7 +28,7 @@
 <head>
 </head>
 <body>
-    <?php foreach ( $db_messages as $db_message ) ?>
+    <?php foreach ( $db_messages as $db_message ) { ?>
     <p>
         <?= $db_message[ 'content' ] ?>
     </p>
