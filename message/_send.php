@@ -13,7 +13,7 @@
 
         $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
         $db_statement = $db_connection->prepare(
-            'INSERT INTO message(sender_user_id, recipient_user_id, content, creation_datetime_utc) VALUES(?, ?, ?, UTC_DATE());'
+            'INSERT INTO message(sender_user_id, recipient_user_id, content, creation_datetime_utc) VALUES(?, ?, ?, UTC_TIMESTAMP());'
         );
         $db_statement->bind_param( 'iis', $sender_user_id, $recipient_user_id, $content );
         $db_statement->execute();
