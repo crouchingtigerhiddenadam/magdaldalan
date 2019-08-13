@@ -49,7 +49,6 @@ sudo mysql -u root
 From the MariaDB prompt type:
 ```
 USE magdaldalan;
-
 TRUNCATE TABLE message;
 ```
 
