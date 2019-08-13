@@ -18,7 +18,9 @@ function update() {
     let xhr = new XMLHttpRequest()
     xhr.onreadystatechange = function() {
         if ( this.readyState == 4 && this.status == 200 ) {
-            document.getElementById( 'history' ).innerHTML = this.responseText
+            let history = document.getElementById( 'history' )
+            history.innerHTML = this.responseText
+            history.scrollTop = history.scrollHeight
         }
     }
     xhr.open( 'GET', '_history.php', true )
