@@ -6,7 +6,8 @@ session_start();
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
-    $content = htmlentities( $_POST[ 'content' ] );
+    $username = htmlentities( $_POST[ 'username' ] );
+    $password = htmlentities( $_POST[ 'password' ] );
 
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare('
@@ -16,9 +17,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     ');
     $db_statement->bind_param( 'ss', $username, $password );
     $db_statement->execute();
-    $db_user = $db_statement->get_result();
+    $db_users = $db_statement->get_result();
+    $db_user = $db_users->fetch_assoc();
 
-    if ( empty( $db_user ) ) {
+    if ( isset( $db_user ) ) {
         $_SESSION[ 'sender_user_id' ] = $db_user[ 'id' ];
         echo 'User found and registered to session';
     }
@@ -33,9 +35,10 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 ?>
 
 <form action="login.php" method="post">
-    <label for="">Username</label>
-    <input name="username" type="text">
-    <label for="">Password</label>
-    <input name="password" type="password">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text">
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password">
     <button type="submit">Login</button>
 </form>
+
