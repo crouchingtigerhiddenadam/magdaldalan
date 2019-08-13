@@ -1,8 +1,13 @@
 <?php
 
     session_start();
-    $_SESSION[ 'sender_user_id' ] = 2;
-    $_SESSION[ 'recipient_user_id' ] = 3;
+
+    if ( !isset( $_SESSION[ 'user_id' ] ) ) {
+        header( 'Location: ../index.php' );
+        die();
+    }
+
+    $_SESSION[ 'recipient_user_id' ] = $_GET[ 'r' ];
 
 ?>
 <!DOCTYPE html>
