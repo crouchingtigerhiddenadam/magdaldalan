@@ -23,7 +23,7 @@ function update() {
             history.scrollTop = history.scrollHeight
         }
     }
-    xhr.open( 'GET', '_history.php', true )
+    xhr.open( 'POST', '_history.php', true )
     xhr.send()
 }
 

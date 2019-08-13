@@ -2,7 +2,8 @@
 
     require_once '../config.php';
 
-    $user_id = 2;
+    session_start();
+    $user_id = $_SESSION[ 'user_id' ];
 
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare( 'SELECT * FROM message WHERE user_id = ?;' );

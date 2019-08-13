@@ -2,8 +2,9 @@
 
     require_once '../config.php';
 
-    $user_id = 2;
-    
+    session_start();
+    $user_id = $_SESSION[ 'user_id' ];
+
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
         $content = htmlentities( $_POST[ 'content' ] );
@@ -19,6 +20,6 @@
 ?>
 
 <form action="index.php" id="form" method="post" onsubmit="send( event )">
-    <input id="content" name="content" type="text">
+    <input autocomplete="off" id="content" name="content" type="text">
     <button type="submit">Send</button>
 </form>
