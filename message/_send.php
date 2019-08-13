@@ -2,7 +2,7 @@
 
 require_once '../config.php';
 
-session_start();
+if ( !isset( $_SESSION ) ) session_start();
 
 $sender_user_id = $_SESSION[ 'user_id' ];
 $recipient_user_id = htmlentities( $_GET[ 'r' ] );
