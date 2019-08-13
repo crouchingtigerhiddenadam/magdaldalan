@@ -1,11 +1,28 @@
 <?php
 
+require_once '../config.php';
+
 session_start();
 
 if ( !isset( $_SESSION[ 'user_id' ] ) ) {
     header( 'Location: ../index.php' );
     die();
 }
+
+$sender_user_id = $_SESSION[ 'user_id' ];
+$recipient_user_id = htmlentities( $_GET[ 'r' ] );
+
+$db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
+$db_statement = $db_connection->prepare('
+    SELECT id, username
+    FROM user
+    WHERE id != ?;
+');
+$db_statement->bind_param( 'i', $sender_user_id );
+$db_statement->execute();
+$db_users = $db_statement->get_result();
+$db_statement->close();
+$db_connection->close();
 
 ?>
 <!DOCTYPE html>
@@ -14,6 +31,12 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) {
     <title>Magdaldalan</title>
 </head>
 <body>
+    <h2>Contacts</h2>
+<?php foreach ( $db_users as $db_user ) { ?>
+    <a href="?r=<?= $db_user[ 'id' ] ?>"><?= $db_user[ 'username' ] ?></a><br>
+<?php } ?>
+<?php if ( !empty( $recipient_user_id ) ) { ?>
+    <h2>Chat</h2>
     <section id="history">
 <?php include '_history.php' ?>
     </section>
@@ -21,5 +44,6 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) {
 <?php include '_send.php' ?>
     </section>
     <script src="index.js"></script>
+<?php } ?>
 </body>
 </html>

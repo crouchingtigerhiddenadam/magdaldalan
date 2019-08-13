@@ -27,7 +27,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
         $_SESSION[ 'user_id' ] = $db_user[ 'id' ];
 
-        header( 'Location: contacts.php' );
+        header( 'Location: message/' );
         die();
     }
 }
