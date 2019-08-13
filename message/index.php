@@ -2,9 +2,7 @@
 
     require_once '../config.php';
 
-    $_SESSION[ 'user_id' ] = 2
-
-    $user_id = $_SESSION[ 'user_id' ];
+    $user_id = 2;
     
     if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
@@ -26,23 +24,39 @@
 </head>
 <body>
     <section id="output">
+        <?php include 'history.php' ?>
     </section>
-    <form method="post">
-        <textarea name="content"></textarea>
+    <form id="form" method="post">
+        <textarea id="content" name="content"></textarea>
         <button type="submit">Send</button>
     </form>
     <script>
 
-        let output = document.getElementById( 'output' );
+        let form = document.getElementById( 'form' )
+        let output = document.getElementById( 'output' )
+        let content = document.getElementById( 'content' )
 
-        setInterval( function() {
+        function update() {
             let xhr = new XMLHttpRequest()
             xhr.onreadystatechange = function() {
                 if ( this.readyState == 4 && this.status == 200 ) output.innerHTML = this.responseText
             }
-            xhr.open( 'get', 'history.php', true)
+            xhr.open( 'GET', 'history.php', true )
             xhr.send()
-        }, 5000 )
+        }
+
+        form.onsubmit = function ( e ) {
+            e.preventDefault()
+            let xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function() {
+                if ( this.readyState == 4 && this.status == 200 ) update()
+            }
+            xhr.open( 'POST', 'index.php', true )
+            xhr.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
+            xhr.send( 'content=' + encodeURI( content.value ) )
+        }
+
+        setInterval( update, 5000 )
 
     </script>
 </body>
