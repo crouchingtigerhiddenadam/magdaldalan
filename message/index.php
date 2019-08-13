@@ -33,7 +33,11 @@ $db_connection->close();
 <body>
     <h2>Contacts</h2>
 <?php foreach ( $db_users as $db_user ) { ?>
+<?php if ( $db_user[ 'id' ] == $recipient_user_id ) { ?>
+    <strong><?= $db_user[ 'username' ] ?></strong><br>
+<?php } else { ?>
     <a href="?r=<?= $db_user[ 'id' ] ?>"><?= $db_user[ 'username' ] ?></a><br>
+<?php } ?>
 <?php } ?>
 <?php if ( !empty( $recipient_user_id ) ) { ?>
     <h2>Chat</h2>
