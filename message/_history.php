@@ -11,7 +11,7 @@ $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
 $db_statement = $db_connection->prepare('
     SELECT content
     FROM message
-    WHERE sender_user_id = ? OR recipient_user_id = ?;
+    WHERE sender_user_id = ? AND recipient_user_id = ?;
 ');
 $db_statement->bind_param( 'ii', $sender_user_id, $recipient_user_id );
 $db_statement->execute();
