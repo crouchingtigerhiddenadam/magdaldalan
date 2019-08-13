@@ -2,6 +2,15 @@
 A super lightweight chat program in PHP.  
 Currently in very early stages of development.
 
+## Clone Project
+
+At the command prompt type:
+```
+mkdir ~/sources
+cd ~/sources
+git clone https://github.com/crouchingtigerhiddenadam/magdaldalan
+```
+
 ## Database Setup
 
 ### Create Database
@@ -16,9 +25,7 @@ From the MariaDB prompt type:
 CREATE DATABASE magdaldalan;
 
 CREATE USER 'magdaldalan'@'localhost' IDENTIFIED BY 'password';
-
 GRANT ALL PRIVILEGES ON `magdaldalan`.* TO 'magdaldalan'@'localhost';
-
 FLUSH PRIVILEGES;
 
 USE magdaldalan;
@@ -44,4 +51,11 @@ From the MariaDB prompt type:
 USE magdaldalan;
 
 TRUNCATE TABLE message;
+```
+
+## Setup NGINX
+
+At the command prompt type:
+```
+sudo ln -s ~/sources/magdaldalan /var/www/html/magdaldalan
 ```
