@@ -19,6 +19,6 @@
 ?>
 
 <form action="index.php" id="form" method="post" onsubmit="send( event )">
-    <textarea id="content" name="content"></textarea>
+    <input id="content" name="content" type="text">
     <button type="submit">Send</button>
 </form>
