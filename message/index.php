@@ -7,8 +7,6 @@
         die();
     }
 
-    $_SESSION[ 'recipient_user_id' ] = $_GET[ 'r' ];
-
 ?>
 <!DOCTYPE html>
 <html>

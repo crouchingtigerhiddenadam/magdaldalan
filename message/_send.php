@@ -4,8 +4,8 @@ require_once '../config.php';
 
 session_start();
 
-$sender_user_id = $_SESSION[ 'sender_user_id' ];
-$recipient_user_id = $_SESSION[ 'recipient_user_id' ];
+$sender_user_id = $_SESSION[ 'user_id' ];
+$recipient_user_id = htmlentities( $_GET[ 'r' ] );
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
@@ -33,7 +33,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 }
 
 ?>
-        <form action="index.php" id="form" method="post" onsubmit="send( event )">
+        <form action="index.php?r=<?= $recipient_user_id ?>" id="form" method="post" onsubmit="send( event )">
             <input autocomplete="off" id="content" name="content" type="text">
             <button type="submit">Send</button>
         </form>

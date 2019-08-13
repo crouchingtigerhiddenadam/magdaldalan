@@ -8,7 +8,7 @@ function send( e ) {
             update()
         }
     }
-    xhr.open( 'POST', '_send.php', true )
+    xhr.open( 'POST', '_send.php' + location.search, true )
     xhr.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
     xhr.send( 'content=' + encodeURI( document.getElementById( 'content' ).value ) )
     return false
@@ -23,7 +23,7 @@ function update() {
             history.scrollTop = history.scrollHeight
         }
     }
-    xhr.open( 'POST', '_history.php', true )
+    xhr.open( 'POST', '_history.php' + location.search, true )
     xhr.send()
 }
 

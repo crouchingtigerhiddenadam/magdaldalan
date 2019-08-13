@@ -4,8 +4,8 @@ require_once '../config.php';
 
 session_start();
 
-$sender_user_id = $_SESSION[ 'sender_user_id' ];
-$recipient_user_id = $_SESSION[ 'recipient_user_id' ];
+$sender_user_id = $_SESSION[ 'user_id' ];
+$recipient_user_id = htmlentities( $_GET[ 'r' ] );
 
 $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
 $db_statement = $db_connection->prepare('
