@@ -5,6 +5,13 @@ Currently in very early stages of development.
 ## Database Setup
 
 ### Create Database
+
+At the command prompt type:
+```
+sudo mysql -u root
+```
+
+From the MariaDB prompt type:
 ```
 CREATE DATABASE magdaldalan;
 
@@ -26,6 +33,13 @@ CREATE TABLE message (
 ```
 
 ### Clear Messages Table
+
+At the command prompt type:
+```
+sudo mysql -u root
+```
+
+From the MariaDB prompt type:
 ```
 USE magdaldalan;
 
