@@ -32,10 +32,17 @@ USE magdaldalan;
 
 CREATE TABLE message (
     id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id int NOT NULL,
+    sender_user_id int NOT NULL,
+    recipient_user_id int NULL,
     content nvarchar(2000) NOT NULL,
     creation_datetime_utc datetime NOT NULL,
     read_datetime_utc datetime NULL
+);
+
+CREATE TABLE user (
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    username nvarchar(100) NOT NULL,
+    password_hash nvarchar(100) NOT NULL
 );
 ```
 

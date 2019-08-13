@@ -1,7 +1,8 @@
 <?php
 
     session_start();
-    $_SESSION[ 'user_id' ] = 2;
+    $_SESSION[ 'sender_user_id' ] = 2;
+    $_SESSION[ 'recipient_user_id' ] = 3;
 
 ?>
 <!DOCTYPE html>
