@@ -12,10 +12,10 @@
 </head>
 <body>
     <section id="history">
-        <?php include '_history.php' ?>
+<?php include '_history.php' ?>
     </section>
     <section id="send">
-        <?php include '_send.php' ?>
+<?php include '_send.php' ?>
     </section>
     <script src="index.js"></script>
 </body>

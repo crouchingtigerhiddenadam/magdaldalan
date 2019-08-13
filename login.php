@@ -12,7 +12,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     $db_statement = $db_connection->prepare('
         SELECT id
         FROM user
-        WHERE username=? AND password_hash=PASSWORD(?);
+        WHERE username = ? AND password_hash = PASSWORD( ? );
     ');
     $db_statement->bind_param( 'ss', $username, $password );
     $db_statement->execute();

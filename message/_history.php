@@ -20,9 +20,6 @@ $db_statement->close();
 $db_connection->close();
 
 ?>
-
 <?php foreach ( $db_messages as $db_message ) { ?>
-<p>
-    <?= $db_message[ 'content' ] ?>
-</p>
+        <p><?= $db_message[ 'content' ] ?></p>
 <?php } ?>
