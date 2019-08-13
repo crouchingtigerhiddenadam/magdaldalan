@@ -1,5 +1,5 @@
 # Magdaldalan
-A super lightweight chat program in PHP created to work on most PHP installations with/without JavaScript enabled on the browser.
+A super lightweight chat program in PHP designed to work with/without JavaScript enabled on the browser.  
 Currently in very early stages of development.
 
 ## Clone Project
