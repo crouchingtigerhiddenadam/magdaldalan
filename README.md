@@ -46,6 +46,19 @@ CREATE TABLE user (
 );
 ```
 
+### Add Users
+
+At the command prompt type:
+```
+sudo mysql -u root
+```
+
+From the MariaDB prompt type:
+```
+INSERT INTO user(username, password_hash) VALUES('alice', PASSWORD('password123'));
+INSERT INTO user(username, password_hash) VALUES('bob', PASSWORD('password456'));
+```
+
 ### Clear Messages Table
 
 At the command prompt type:
