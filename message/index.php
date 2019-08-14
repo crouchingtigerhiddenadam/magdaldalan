@@ -17,7 +17,7 @@ $db_statement = $db_connection->prepare('
     SELECT
         u.id,
         u.username,
-        COUNT( rm.id ) AS received_messages
+        COUNT( rm.id ) AS unread_count
     FROM user AS u
     LEFT JOIN message AS rm ON
         u.id = rm.sender_user_id AND
@@ -41,18 +41,7 @@ $db_connection->close();
 </head>
 <body>
     <section id="contacts">
-<?php foreach ( $db_users as $db_user ) { ?>
-<?php if ( $db_user[ 'id' ] == $recipient_user_id ) { ?>
-        <article>
-            <strong><?= $db_user[ 'username' ] ?></strong>
-        </article>
-<?php } else { ?>
-        <article>
-            <a href="?r=<?= $db_user[ 'id' ] ?>"><?= $db_user[ 'username' ] ?></a>
-            <small><?= $db_user[ 'received_messages' ] ?></small>
-        </article>
-<?php } ?>
-<?php } ?>
+<?php include '_contacts.php' ?>
     </section>
     <section id="history">
 <?php include '_history.php' ?>

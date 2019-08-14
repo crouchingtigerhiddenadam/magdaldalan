@@ -8,8 +8,6 @@ $sender_user_id = $_SESSION[ 'user_id' ];
 $recipient_user_id = htmlentities( $_GET[ 'r' ] );
 
 $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
-
-// Get messages
 $db_statement = $db_connection->prepare('
     SELECT
         m.sender_user_id AS sender_user_id,
@@ -25,8 +23,6 @@ $db_statement->bind_param( 'iiii', $sender_user_id, $recipient_user_id, $sender_
 $db_statement->execute();
 $db_messages = $db_statement->get_result();
 $db_statement->close();
-
-// Update 'read' status
 $db_statement = $db_connection->prepare('
     UPDATE message
     SET read_datetime_utc = UTC_TIMESTAMP()
@@ -38,7 +34,6 @@ $db_statement = $db_connection->prepare('
 $db_statement->bind_param( 'ii', $sender_user_id, $recipient_user_id );
 $db_statement->execute();
 $db_statement->close();
-
 $db_connection->close();
 
 ?>
