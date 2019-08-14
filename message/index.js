@@ -1,40 +1,43 @@
 function send( e ) {
+    
     e.preventDefault()
-    let xhr = new XMLHttpRequest()
-    xhr.onreadystatechange = function() {
-        if ( this.readyState == 4 && this.status == 200 ) {
-            document.getElementById( 'send' ).innerHTML = this.responseText
+
+    let send = new XMLHttpRequest()
+    send.onreadystatechange = function() {
+        if ( send.readyState == 4 && send.status == 200 ) {
+            document.getElementById( 'send' ).innerHTML = send.responseText
             document.getElementById( 'content' ).focus()
             update()
         }
     }
-    xhr.open( 'POST', '_send.php' + location.search, true )
-    xhr.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
-    xhr.send( 'content=' + encodeURI( document.getElementById( 'content' ).value ) )
+    send.open( 'POST', '_send.php' + location.search, true )
+    send.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
+    send.send( 'content=' + encodeURI( document.getElementById( 'content' ).value ) )
+
     return false
 }
 
 function update() {
 
-    let xhr1 = new XMLHttpRequest()
-    xhr1.onreadystatechange = function() {
-        if ( xhr1.readyState == 4 && xhr1.status == 200 ) {
-            document.getElementById( 'contacts' ).innerHTML = xhr1.responseText
+    let contacts = new XMLHttpRequest()
+    contacts.onreadystatechange = function() {
+        if ( contacts.readyState == 4 && contacts.status == 200 ) {
+            document.getElementById( 'contacts' ).innerHTML = contacts.responseText
         }
     }
-    xhr1.open( 'POST', '_contacts.php' + location.search, true )
-    xhr1.send()
+    contacts.open( 'POST', '_contacts.php' + location.search, true )
+    contacts.send()
 
-    let xhr2 = new XMLHttpRequest()
-    xhr2.onreadystatechange = function() {
-        if ( xhr2.readyState == 4 && xhr2.status == 200 ) {
-            let history = document.getElementById( 'history' )
-            history.innerHTML = xhr2.responseText
-            history.scrollTop = history.scrollHeight
+    let history = new XMLHttpRequest()
+    history.onreadystatechange = function() {
+        if ( history.readyState == 4 && history.status == 200 ) {
+            let section = document.getElementById( 'history' )
+            section.innerHTML = history.responseText
+            section.scrollTop = section.scrollHeight
         }
     }
-    xhr2.open( 'POST', '_history.php' + location.search, true )
-    xhr2.send()
+    history.open( 'POST', '_history.php' + location.search, true )
+    history.send()
 }
 
 let history = document.getElementById( 'history' )

@@ -9,15 +9,21 @@ $recipient_user_id = htmlentities( $_GET[ 'r' ] );
 
 $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
 $db_statement = $db_connection->prepare('
-    SELECT
-        m.sender_user_id AS sender_user_id,
-        su.username AS sender,
-        m.content AS content,
-        m.read_datetime_utc AS read_datetime_utc
-    FROM message AS m
-    JOIN user AS su ON m.sender_user_id = su.id
-    WHERE ( m.sender_user_id = ? AND m.recipient_user_id = ? ) OR
-          ( m.recipient_user_id = ? AND m.sender_user_id = ? )
+    SELECT *
+    FROM (
+        SELECT
+            m.id AS id,
+            m.sender_user_id AS sender_user_id,
+            su.username AS sender,
+            m.content AS content,
+            m.read_datetime_utc AS read_datetime_utc
+        FROM message AS m
+        JOIN user AS su ON m.sender_user_id = su.id
+        WHERE ( m.sender_user_id = ? AND m.recipient_user_id = ? ) OR
+            ( m.recipient_user_id = ? AND m.sender_user_id = ? )
+        ORDER BY m.id DESC LIMIT 10
+    ) AS last_ten_messages
+    ORDER BY id ASC;
 ');
 $db_statement->bind_param( 'iiii', $sender_user_id, $recipient_user_id, $sender_user_id, $recipient_user_id );
 $db_statement->execute();
