@@ -1,6 +1,6 @@
 <?php
 
-require_once 'config.php';
+require_once '../config.php';
 
 if ( !isset( $_SESSION ) ) session_destroy();
 session_start();
@@ -27,8 +27,11 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
         $_SESSION[ 'user_id' ] = $db_user[ 'id' ];
 
-        header( 'Location: message/' );
+        header( 'Location: ../message/' );
         die();
+    }
+    else {
+        echo 'Username or password is incorrect';
     }
 }
 

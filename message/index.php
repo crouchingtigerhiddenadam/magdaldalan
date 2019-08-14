@@ -28,77 +28,20 @@ $db_connection->close();
 <!DOCTYPE html>
 <html>
 <head>
-<title>Magdaldalan</title>
-<style>
-
-    @import url('https://fonts.googleapis.com/css?family=Roboto');
-
-    body {
-        font-family: 'Roboto', sans-serif;
-    }
-
-    .history-message {
-        background-color: #eee;
-        border-radius: 5px;
-        margin: 20px 0;
-        padding: 10px 20px;
-    }
-
-    .send-form {
-        background-color: #eee;
-        border-radius: 5px;
-        display: flex;
-        margin: 20px 0;
-        padding: 10px 15px;
-    }
-
-    .send-submit {
-        align-self: center;
-        cursor: pointer;
-        border-radius: 5px;
-        border: 1px solid #000;
-        font-size: 16px;
-        padding: 10px 15px;
-    }
-
-    .send-content {
-        background: transparent;
-        border: none;
-        font-size: 16px;
-        flex-grow: 1;
-        outline: none;
-    }
-
-    body {
-        display: grid;
-        grid-template: 4fr 1fr / 1fr 4fr;
-        grid-template-areas: "contacts history" "contacts send";
-        height: 100vh;
-        margin: 0;
-    }
-
-    #send { 
-        grid-area: send;
-    }
-
-    #history {
-        grid-area: history;
-    }
-
-    #contacts {
-        grid-area: contacts;
-    }
-
-</style>
+    <title>Magdaldalan</title>
+    <link href="index.css" rel="stylesheet">
 </head>
 <body>
     <section id="contacts">
-        <h2>Contacts</h2>
 <?php foreach ( $db_users as $db_user ) { ?>
 <?php if ( $db_user[ 'id' ] == $recipient_user_id ) { ?>
-        <strong><?= $db_user[ 'username' ] ?></strong><br>
+        <article>
+            <strong><?= $db_user[ 'username' ] ?></strong>
+        </article>
 <?php } else { ?>
-        <a href="?r=<?= $db_user[ 'id' ] ?>"><?= $db_user[ 'username' ] ?></a><br>
+        <article>
+            <a href="?r=<?= $db_user[ 'id' ] ?>"><?= $db_user[ 'username' ] ?></a>
+        </article>
 <?php } ?>
 <?php } ?>
     </section>

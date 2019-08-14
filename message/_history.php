@@ -25,9 +25,13 @@ $db_statement->close();
 $db_connection->close();
 
 ?>
+<?php if ( empty( $recipient_user_id ) ) { ?>
+        Select a user from the left hand side
+<?php } else { ?>
 <?php foreach ( $db_messages as $db_message ) { ?>
         <article>
             <h1><?= $db_message[ 'sender' ] ?></h1>
             <?= $db_message[ 'content' ] ?> 
         </article>
+<?php } ?>
 <?php } ?>
