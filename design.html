@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+
+        body {
+            display: grid;
+            grid-template: 4fr 1fr / 1fr 4fr;
+            grid-template-areas: "contacts history" "contacts send";
+            height: 100vh;
+            margin: 0;
+        }
+
+        #send { background: red; grid-area: send; }
+        #history { background: green; grid-area: history; }
+        #contacts { background: blue; grid-area: contacts; }
+
+    </style>
+</head>
+<body>
+    <section id="contacts">
+    </section>
+    <section id="history">
+    </section>
+    <section id="send">
+    </section>
+</body>
+</html>

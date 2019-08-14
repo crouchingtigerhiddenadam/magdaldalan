@@ -26,8 +26,8 @@ $db_connection->close();
 
 ?>
 <?php foreach ( $db_messages as $db_message ) { ?>
-        <div class="history-message">
-            <small><?= $db_message[ 'sender' ] ?></small>
-            <p><?= $db_message[ 'content' ] ?></p>
-        </div>
+        <article>
+            <h1><?= $db_message[ 'sender' ] ?></h1>
+            <?= $db_message[ 'content' ] ?> 
+        </article>
 <?php } ?>
