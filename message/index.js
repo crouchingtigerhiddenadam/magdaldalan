@@ -27,4 +27,4 @@ function update() {
     xhr.send()
 }
 
-setInterval( update, 5000 )
+setInterval( update, 2500 )
