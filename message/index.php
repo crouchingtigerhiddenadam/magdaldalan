@@ -29,6 +29,47 @@ $db_connection->close();
 <html>
 <head>
     <title>Magdaldalan</title>
+    <style>
+
+        @import url('https://fonts.googleapis.com/css?family=Roboto');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .history-message {
+            background-color: #eee;
+            border-radius: 5px;
+            margin: 20px 0;
+            padding: 10px 20px;
+        }
+
+        .send-form {
+            background-color: #eee;
+            border-radius: 5px;
+            display: flex;
+            margin: 20px 0;
+            padding: 10px 15px;
+        }
+
+        .send-submit {
+            align-self: center;
+            cursor: pointer;
+            border-radius: 5px;
+            border: 1px solid #000;
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+
+        .send-content {
+            background: transparent;
+            border: none;
+            font-size: 16px;
+            flex-grow: 1;
+            outline: none;
+        }
+
+    </style>
 </head>
 <body>
     <h2>Contacts</h2>
