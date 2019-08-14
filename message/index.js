@@ -27,4 +27,6 @@ function update() {
     xhr.send()
 }
 
+let history = document.getElementById( 'history' )
+history.scrollTop = history.scrollHeight
 setInterval( update, 2500 )
