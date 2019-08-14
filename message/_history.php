@@ -11,6 +11,7 @@ $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
 $db_statement = $db_connection->prepare('
     SELECT
         m.content AS content,
+        m.sender_user_id AS sender_user_id,
         su.username AS sender
     FROM message AS m
     JOIN user AS su ON m.sender_user_id = su.id
@@ -29,9 +30,16 @@ $db_connection->close();
         Select a user from the left hand side
 <?php } else { ?>
 <?php foreach ( $db_messages as $db_message ) { ?>
-        <article>
+<?php if ( $db_message[ 'sender_user_id' ] == $recipient_user_id ) { ?>
+        <article class="received">
             <h1><?= $db_message[ 'sender' ] ?></h1>
             <?= $db_message[ 'content' ] ?> 
         </article>
+<?php } else { ?>
+        <article>
+            <h1><?= $db_message[ 'sender' ] ?></h1>
+            <?= $db_message[ 'content' ] ?>* 
+        </article>
+<?php } ?>
 <?php } ?>
 <?php } ?>
