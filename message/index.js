@@ -1,45 +1,54 @@
-function send( e ) {
-    
-    e.preventDefault()
+function scroll() {
+    let section = document.getElementById( 'messages' )
+    section.scrollTop = section.scrollHeight
+}
 
-    let send = new XMLHttpRequest()
-    send.onreadystatechange = function() {
-        if ( send.readyState == 4 && send.status == 200 ) {
-            document.getElementById( 'send' ).innerHTML = send.responseText
-            document.getElementById( 'content' ).focus()
+function send( e ) {
+    e.preventDefault()
+    let request = new XMLHttpRequest()
+    request.onreadystatechange = function() {
+        if ( request.readyState == 4 && request.status == 200 ) {
+            let control, section
+
+            // update send section
+            section = document.getElementById( 'send' )
+            section.innerHTML = request.responseText
+
+            // focus content textbox
+            control = document.getElementById( 'content' )
+            control.focus()
             update()
         }
     }
-    send.open( 'POST', '_send.php' + location.search, true )
-    send.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
-    send.send( 'content=' + encodeURI( document.getElementById( 'content' ).value ) )
-
+    request.open( 'POST', '_send.php' + location.search, true )
+    request.setRequestHeader( 'Content-type', 'application/x-www-form-urlencoded' )
+    request.send( 'content=' + encodeURI( document.getElementById( 'content' ).value ) )
     return false
 }
 
 function update() {
+    let request = new XMLHttpRequest()
+    request.onreadystatechange = function() {
+        if ( request.readyState == 4 && request.status == 200 ) {
+            let response, section
 
-    let contacts = new XMLHttpRequest()
-    contacts.onreadystatechange = function() {
-        if ( contacts.readyState == 4 && contacts.status == 200 ) {
-            document.getElementById( 'contacts' ).innerHTML = contacts.responseText
+            // update contacts
+            response = request.responseText.match(/<section\s+id="contacts">[\S\s]*?<\/section>/gi)[0]
+            section = document.getElementById( 'contacts' )
+            if ( section.outerHTML !=  response ) section.outerHTML = response
+
+            // update messages
+            response = request.responseText.match(/<section\s+id="messages">[\S\s]*?<\/section>/gi)[0]
+            section = document.getElementById( 'messages' )
+            if ( section.outerHTML !== response ) {
+                section.outerHTML = response
+                scroll()
+            }
         }
     }
-    contacts.open( 'POST', '_contacts.php' + location.search, true )
-    contacts.send()
-
-    let history = new XMLHttpRequest()
-    history.onreadystatechange = function() {
-        if ( history.readyState == 4 && history.status == 200 ) {
-            let section = document.getElementById( 'history' )
-            section.innerHTML = history.responseText
-            section.scrollTop = section.scrollHeight
-        }
-    }
-    history.open( 'POST', '_history.php' + location.search, true )
-    history.send()
+    request.open( 'POST', '_received.php' + location.search, true )
+    request.send()
 }
 
-let history = document.getElementById( 'history' )
-history.scrollTop = history.scrollHeight
 setInterval( update, 5000 )
+scroll()

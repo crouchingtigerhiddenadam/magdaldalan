@@ -7,7 +7,7 @@ body {
 body {
     display: grid;
     grid-template: 4fr 1fr / 1fr 4fr;
-    grid-template-areas: "contacts history" "contacts send";
+    grid-template-areas: "contacts messages" "contacts send";
     height: 100vh;
     margin: 0;
 }
@@ -37,25 +37,25 @@ body {
     text-decoration: none;
 }
 
-#history {
-    grid-area: history;
+#messages {
+    grid-area: messages;
     overflow-y: scroll;
     padding: 15px;
 }
 
-#history article {
+#messages article {
     background-color: #eee;
     border-radius: 5px;
     margin: 20px 0;
     padding: 20px;
 }
 
-#history article.received {
+#messages article.received {
     background: #000;
     color: #fff;
 }
 
-#history h1 {
+#messages h1 {
     font-size: 12px;
     font-weight: 100;
     margin: 0 0 10px 0;

@@ -40,12 +40,7 @@ $db_connection->close();
     <link href="index.css" rel="stylesheet">
 </head>
 <body>
-    <section id="contacts">
-<?php include '_contacts.php' ?>
-    </section>
-    <section id="history">
-<?php include '_history.php' ?>
-    </section>
+<?php include '_received.php' ?>
     <section id="send">
 <?php include '_send.php' ?>
     </section>
