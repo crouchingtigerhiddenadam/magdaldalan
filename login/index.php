@@ -36,11 +36,17 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 }
 
 ?>
-
+<html>
+<head>
+    <title></title>
+    <link href="../site.css" rel="stylesheet">
+</head>
 <form action="index.php" method="post">
     <label for="username">Username</label>
-    <input id="username" name="username" type="text">
+    <input id="username" name="username" type="text" required>
     <label for="password">Password</label>
-    <input id="password" name="password" type="password">
+    <input id="password" name="password" type="password" required>
     <button type="submit">Login</button>
 </form>
+<a href="#">Forgot password?</a>
+</html>
