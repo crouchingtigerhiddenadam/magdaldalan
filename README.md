@@ -25,7 +25,7 @@ From the MariaDB prompt type:
 CREATE DATABASE magdaldalan;
 
 CREATE USER 'magdaldalan'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON `magdaldalan`.* TO 'magdaldalan'@'loadacalhost';
+GRANT ALL PRIVILEGES ON `magdaldalan`.* TO 'magdaldalan'@'localhost';
 FLUSH PRIVILEGES;
 
 USE magdaldalan;
