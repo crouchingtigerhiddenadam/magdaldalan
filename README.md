@@ -30,6 +30,13 @@ FLUSH PRIVILEGES;
 
 USE magdaldalan;
 
+CREATE TABLE attachment (
+    id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    message_id int NULL,
+    filename nvarchar(255) NOT NULL,
+    store nvarchar(1024) NOT NULL
+);
+
 CREATE TABLE message (
     id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     sender_user_id int NOT NULL,
