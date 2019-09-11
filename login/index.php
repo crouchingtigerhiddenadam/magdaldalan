@@ -7,16 +7,16 @@ session_start();
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
 
-    $username = htmlentities( $_POST[ 'username' ] );
+    $email = htmlentities( $_POST[ 'email_address' ] );
     $password = htmlentities( $_POST[ 'password' ] );
-
+    
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare('
         SELECT id
         FROM user
-        WHERE username = ? AND password_hash = PASSWORD( ? );
+        WHERE email_address = ? AND password_hash = PASSWORD( ? );
     ');
-    $db_statement->bind_param( 'ss', $username, $password );
+    $db_statement->bind_param( 'ss', $email, $password );
     $db_statement->execute();
     $db_users = $db_statement->get_result();
     $db_user = $db_users->fetch_assoc();
@@ -31,7 +31,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
         die();
     }
     else {
-        echo 'Username or password is incorrect';
+        echo 'Email address or password is incorrect';
     }
 }
 
@@ -42,8 +42,8 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
     <link href="../site.css" rel="stylesheet">
 </head>
 <form action="index.php" method="post">
-    <label for="username">Username</label>
-    <input id="username" name="username" type="text" required>
+    <label for="email_address">Email Address</label>
+    <input id="email_address" name="email_address" type="text" required>
     <label for="password">Password</label>
     <input id="password" name="password" type="password" required>
     <button type="submit">Login</button>

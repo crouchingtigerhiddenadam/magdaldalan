@@ -29,7 +29,7 @@ $db_connection->close();
     </colgroup>
     <thead>
         <tr>
-            <th>Username</td>
+            <th>Email Address</td>
             <th>Password</td>
             <th>Edit</td>
             <th>Delete</td>
@@ -38,12 +38,12 @@ $db_connection->close();
     <tbody>
     <?php if ( count($db_rows) == 0 ) { ?>
         <tr>
-            <td colspan="3">You have no users yet.</td>
+            <td colspan="4">You have no users yet.</td>
         </tr>
     <?php } else { ?>
         <?php foreach ( $db_rows as $db_row ) { ?>
             <tr>
-                <td><?= $db_row[ 'username' ] ?></td>
+                <td><?= $db_row[ 'email_address' ] ?></td>
                 <td><?= $db_row[ 'password_hash' ] ?></td>
                 <td>
                     <a href="edit.php?id=<?= $db_row[ 'id' ] ?>">Edit</a>

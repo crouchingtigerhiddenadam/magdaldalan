@@ -27,7 +27,7 @@ else {
     $db_statement->close();
     $db_connection->close();
 
-    $username = $db_row[ 'username' ];
+    $email = $db_row['email_address'];
     $password = $db_row[ 'password_hash' ];
 }
 
@@ -44,8 +44,8 @@ else {
     <h2>Delete User</h2>
     <form method="POST">
         <fieldset>
-            <label for="username">Username</label>
-            <input disabled id="username" name="username" readonly type="text" value="<?= $username ?>">
+            <label for="email_address">Email Address</label>
+            <input disabled id="email_address" name="email_address" readonly type="text" value="<?= $email ?>">
             <label for="password">Password</label>
             <input disabled id="password" name="password" readonly type="password" value="<?= $password ?>">
             <button type="submit">Delete</button>
