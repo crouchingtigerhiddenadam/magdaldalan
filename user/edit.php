@@ -23,7 +23,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
     if ( $valid ) {
     
         $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
-        $db_statement = $db_connection->prepare( "UPDATE user SET email_address = ?, password_hash = ? WHERE id = ?;" );
+        $db_statement = $db_connection->prepare( "UPDATE user SET email_address = ?, password_hash = IFNULL(PASSWORD(?),password_hash) WHERE id = ?;" );
         $db_statement->bind_param( 'ssi', $email, $password, $id );
         $db_statement->execute();
         $db_statement->close();
