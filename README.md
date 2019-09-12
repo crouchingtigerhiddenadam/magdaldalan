@@ -48,7 +48,7 @@ CREATE TABLE message (
 
 CREATE TABLE user (
     id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    username nvarchar(100) NOT NULL,
+    email_address nvarchar(100) NOT NULL,
     password_hash nvarchar(100) NOT NULL
 );
 ```
@@ -62,8 +62,8 @@ sudo mysql -u root
 
 From the MariaDB prompt type:
 ```
-INSERT INTO user(username, password_hash) VALUES('alice', PASSWORD('password123'));
-INSERT INTO user(username, password_hash) VALUES('bob', PASSWORD('password456'));
+INSERT INTO user(email_address, password_hash) VALUES('alice@email.com', PASSWORD('password123'));
+INSERT INTO user(email_address, password_hash) VALUES('bob@email.com', PASSWORD('password456'));
 ```
 
 ### Clear Messages Table
