@@ -63,19 +63,19 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   <form action="edit.php?id=<?= $id ?>" method="POST">
   <fieldset>
     <label for="email_address">Email Address</label>
-    <?php if ( isset($email_error) ) { ?>
+<?php if ( isset($email_error) ) { ?>
     <span class="error"><?= $email_error ?></span>
     <input class="error" id="email" name="email" type="text" value="<?= $email_value ?>">
-    <?php } else { ?>
-        <input id="email" name="email" type="text" value="<?= $email_value ?>">
-    <?php } ?>
+<?php } else { ?>
+    <input id="email" name="email" type="text" value="<?= $email_value ?>">
+<?php } ?>
     <label for="password">Password</label>
-    <?php if ( isset($password_error) ) { ?>
+<?php if ( isset($password_error) ) { ?>
     <span class="error"><?= $password_error ?></span>
     <input class="error" id="password" name="password" type="password" value="<?= $password_value ?>">
-    <?php } else { ?>
-      <input id="password" name="password" type="password" value="<?= $password_value ?>">
-    <?php } ?>
+<?php } else { ?>
+    <input id="password" name="password" type="password" value="<?= $password_value ?>">
+<?php } ?>
     <button type="submit">Update</button>
     <a class="button button-outline" href="index.php">Cancel</a>
   </fieldset>

@@ -38,8 +38,10 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 }
 
 ?>
-  <hr>
-  <form action="index.php?r=<?= $recipient_user_id ?>" class="send-form" method="post" onsubmit="send( event )">
-    <input autocomplete="off" class="send-content" id="content" name="content" type="text">
-    <button class="send-submit" type="submit">Send</button>
-  </form>
+  <section id="send">
+    <hr>
+    <form action="index.php?r=<?= $recipient_user_id ?>" class="send-form" method="post" onsubmit="send( event )">
+      <input autocomplete="off" class="send-content" id="content" name="content" type="text">
+      <button class="send-submit" type="submit">Send</button>
+    </form>
+  </section>

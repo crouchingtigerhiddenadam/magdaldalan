@@ -17,10 +17,11 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) {
   <link href="index.css" rel="stylesheet">
 </head>
 <body>
+  <main>
 <?php include '_received.php' ?>
-  <section id="send">
+
 <?php include '_send.php' ?>
-  </section>
-  <script src="index.js"></script>
+  </main>
+  <script src="index.js"></script>  
 </body>
 </html>

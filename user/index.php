@@ -35,12 +35,12 @@ $db_connection->close();
     </tr>
     </thead>
     <tbody>
-    <?php if ( count($db_rows) == 0 ) { ?>
+<?php if ( count($db_rows) == 0 ) { ?>
     <tr>
       <td colspan="4">You have no users yet.</td>
     </tr>
-    <?php } else { ?>
-    <?php foreach ( $db_rows as $db_row ) { ?>
+<?php } else { ?>
+<?php foreach ( $db_rows as $db_row ) { ?>
     <tr>
       <td><?= $db_row[ 'email' ] ?></td>
       <td><?= $db_row[ 'password_hash' ] ?></td>
@@ -51,8 +51,8 @@ $db_connection->close();
         <a href="delete.php?id=<?= $db_row[ 'id' ] ?>">Delete</a>
       </td>
     </tr>
-    <?php } ?>
-    <?php } ?>
+<?php } ?>
+<?php } ?>
     </tbody>
     </table>
     <a class="button" href="add.php">Add</a>

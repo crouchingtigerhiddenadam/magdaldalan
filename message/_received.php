@@ -83,7 +83,7 @@ $db_statement->execute();
 $db_statement->close();
 $db_connection->close();
 
-?> 
+?>
   <section id="contacts">
 <?php foreach ( $db_contacts as $db_contact ) { ?>
 <?php if ( $db_contact[ 'id' ] == $recipient_user_id ) { ?>
