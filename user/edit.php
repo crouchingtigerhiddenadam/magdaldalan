@@ -9,7 +9,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'GET' ) {
   $db_statement = $db_connection->prepare( "SELECT email FROM user WHERE id = ?;" );
   $db_statement->bind_param( 'i', $id );
   $db_statement->execute();
-  $db_result = $db_statement->get_result( MYSQLI_ASSOC );
+  $db_result = $db_statement->get_result();
   $db_row = $db_result->fetch_assoc();
   $db_statement->close();
   $db_connection->close();
@@ -22,12 +22,12 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   $email_value = htmlentities( $_POST[ 'email' ] );
   if ( empty( $email_value ) ) {
     $email_error = 'You need to enter an email address';
-    $valid = false;
+    $is_valid = false;
   }
 
   $password_value = htmlentities( $_POST[ 'password' ] );
 
-  if ( !isset( $valid ) ) {
+  if ( !isset( $is_valid ) ) {
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare("
       UPDATE

@@ -9,7 +9,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'GET' ) {
   $db_statement = $db_connection->prepare( "SELECT * FROM user WHERE id = ?;" );
   $db_statement->bind_param( 'i', $id );
   $db_statement->execute();
-  $db_result = $db_statement->get_result( MYSQLI_ASSOC );
+  $db_result = $db_statement->get_result();
   $db_row = $db_result->fetch_assoc();
   $db_statement->close();
   $db_connection->close();

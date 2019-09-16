@@ -5,18 +5,18 @@ require '../config.php';
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 
   $email_value = htmlentities( $_POST[ 'email' ] );
-  if ( empty($email_value) ) {
+  if ( empty( $email_value ) ) {
     $email_error = 'You need to enter an email address';
-    $valid = false;
+    $is_valid = false;
   }
 
   $password_value = htmlentities( $_POST[ 'password' ] );
-  if ( empty($password_value) ) {
+  if ( empty( $password_value ) ) {
     $password_error = 'You need to enter a password';
-    $valid = false;
+    $is_valid = false;
   }
 
-  if ( !isset( $valid ) ) {
+  if ( !isset( $is_valid ) ) {
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare("
       INSERT INTO user( email, password_hash )
