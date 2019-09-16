@@ -30,19 +30,19 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 ?>
 <html>
 <head>
-    <title>Delete User</title>
-    <link href="../site.css" rel="stylesheet">
+  <title>Delete User</title>
+  <link href="../site.css" rel="stylesheet">
 </head>
 <body>
 <main>
   <h2>Delete User</h2>
   <form method="POST">
-    <fieldset>
-      <label for="email">Email Address</label>
-      <input disabled id="email" name="email" readonly type="text" value="<?= $email_value ?>">
-      <button type="submit">Delete</button>
-      <a class="button button-outline" href="index.php">Cancel</a>
-    </fieldset>
+  <fieldset>
+    <label for="email">Email Address</label>
+    <input disabled id="email" name="email" readonly type="text" value="<?= $email_value ?>">
+    <button type="submit">Delete</button>
+    <a class="button button-outline" href="index.php">Cancel</a>
+  </fieldset>
   </form>
 </main>
 </body>

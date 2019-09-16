@@ -69,7 +69,6 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
     <?php } else { ?>
         <input id="email" name="email" type="text" value="<?= $email_value ?>">
     <?php } ?>
-
     <label for="password">Password</label>
     <?php if ( isset($password_error) ) { ?>
     <span class="error"><?= $password_error ?></span>
