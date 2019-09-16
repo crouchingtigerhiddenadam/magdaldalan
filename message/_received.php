@@ -6,38 +6,30 @@ if ( !isset( $_SESSION ) ) {
   session_start();
 }
 
-if ( !isset( $_SESSION[ 'user_id' ] ) ) {
-  header( 'Location: ../login/' );
-  die();
-}
-
 $sender_user_id = $_SESSION[ 'user_id' ];
 $recipient_user_id = htmlentities( $_GET[ 'r' ] );
-$db_connection = new mysqli( 
-  $db_server,
-  $db_username,
-  $db_password,
-  $db_name );
 
 // Get users and unread message count
+$db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
 $db_statement = $db_connection->prepare("
   SELECT
     user.id,
     user.email,
     COUNT( unread_message.id ) AS unread_count
   FROM user
-  LEFT JOIN message AS unread_message ON
+  LEFT JOIN message AS unread_message
+  ON
     user.id = unread_message.sender_user_id AND
     unread_message.recipient_user_id = ? AND
     unread_message.read_datetime_utc IS NULL
-  WHERE user.id != ?
-  GROUP BY user.id, user.email; ");
-$db_statement->bind_param(
-  'ii',
-  $sender_user_id,
-  $sender_user_id );
+  WHERE
+    user.id != ?
+  GROUP BY
+    user.id, user.email;");
+$db_statement->bind_param( 'ii', $sender_user_id, $sender_user_id );
 $db_statement->execute();
-$db_contacts = $db_statement->get_result();
+$db_result = $db_statement->get_result();
+$db_contacts = $db_result->fetch_all( MYSQLI_ASSOC );
 $db_statement->close();
 
 // Get last 10 messages
@@ -50,13 +42,19 @@ $db_statement = $db_connection->prepare("
       sender_user.email AS sender,
       message.content AS content,
       message.read_datetime_utc AS read_datetime_utc
-    FROM message
-    JOIN user AS sender_user ON message.sender_user_id = sender_user.id
-    WHERE ( message.sender_user_id = ? AND message.recipient_user_id = ? )
-      OR  ( message.recipient_user_id = ? AND message.sender_user_id = ? )
-    ORDER BY message.id DESC LIMIT 10
+    FROM
+      message
+    JOIN user AS sender_user
+    ON
+      message.sender_user_id = sender_user.id
+    WHERE
+      (message.sender_user_id = ? AND message.recipient_user_id = ?) OR
+      (message.recipient_user_id = ? AND message.sender_user_id = ?)
+    ORDER BY
+      message.id DESC LIMIT 10
   ) AS last_ten_messages
-  ORDER BY id ASC; ");
+  ORDER BY
+    id ASC;");
 $db_statement->bind_param(
   'iiii',
   $sender_user_id,
@@ -65,17 +63,21 @@ $db_statement->bind_param(
   $recipient_user_id
 );
 $db_statement->execute();
-$db_messages = $db_statement->get_result();
+$db_result = $db_statement->get_result();
+$db_messages = $db_result->fetch_all( MYSQLI_ASSOC );
 $db_statement->close();
 
 // Update 'read/unread' status
 $db_statement = $db_connection->prepare("
-  UPDATE message
-  SET read_datetime_utc = UTC_TIMESTAMP()
+  UPDATE
+    message
+  SET
+    read_datetime_utc = UTC_TIMESTAMP()
   WHERE
     read_datetime_utc IS NULL AND
     recipient_user_id = ? AND
-    sender_user_id = ?; ");
+    sender_user_id = ?;
+");
 $db_statement->bind_param( 'ii', $sender_user_id, $recipient_user_id );
 $db_statement->execute();
 $db_statement->close();

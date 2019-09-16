@@ -5,24 +5,23 @@ require '../config.php';
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
 
   $email_value = htmlentities( $_POST[ 'email' ] );
-  $password_value = htmlentities( $_POST[ 'password' ] );
-  $valid = true;
-
   if ( empty($email_value) ) {
     $email_error = 'You need to enter an email address';
     $valid = false;
   }
 
+  $password_value = htmlentities( $_POST[ 'password' ] );
   if ( empty($password_value) ) {
     $password_error = 'You need to enter a password';
     $valid = false;
   }
 
-  if ( $valid ) {
+  if ( !isset( $valid ) ) {
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
     $db_statement = $db_connection->prepare("
       INSERT INTO user( email, password_hash )
-      VALUES( ?, PASSWORD(?) ); ");
+      VALUES( ?, PASSWORD(?) ); 
+    ");
     $db_statement->bind_param( 'ss', $email_value, $password_value );
     $db_statement->execute();
     $db_statement->close();
@@ -30,7 +29,6 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
     header( 'Location: index.php' );
     die();
   }
-
 }
 
 ?>

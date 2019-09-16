@@ -3,9 +3,7 @@
 require '../config.php';
 
 $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
-$db_statement = $db_connection->prepare("
-  SELECT id, email, password_hash
-  FROM user; ");
+$db_statement = $db_connection->prepare( "SELECT id, email, password_hash FROM user;" );
 $db_statement->execute();
 $db_result = $db_statement->get_result();
 $db_rows = $db_result->fetch_all( MYSQLI_ASSOC );
