@@ -14,17 +14,15 @@ function receive() {
             section = document.getElementById( 'messages' )
             if ( section.outerHTML !== response ) {
                 section.outerHTML = response
-                scroll()
+
+                // Scroll down
+                section = document.getElementById( 'messages' )
+                section.scrollTop = section.scrollHeight
             }
         }
     }
     request.open( 'POST', '_received.php' + location.search, true )
     request.send()
-}
-
-function scroll() {
-    let section = document.getElementById( 'messages' )
-    section.scrollTop = section.scrollHeight
 }
 
 function send( e ) {
