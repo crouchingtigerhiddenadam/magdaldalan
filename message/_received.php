@@ -2,8 +2,12 @@
 
 require_once '../config.php';
 
+if ( !isset( $_SESSION ) ) {
+  session_start();
+}
+
 if ( !isset( $_SESSION[ 'user_id' ] ) ) {
-  header( 'Location: ../index.php' );
+  header( 'Location: ../login/' );
   die();
 }
 
@@ -19,15 +23,15 @@ $db_connection = new mysqli(
 $db_statement = $db_connection->prepare("
   SELECT
     user.id,
-    user.username,
+    user.email,
     COUNT( unread_message.id ) AS unread_count
-  FROM user AS user
-  LEFT JOIN unread_message AS unread ON
+  FROM user
+  LEFT JOIN message AS unread_message ON
     user.id = unread_message.sender_user_id AND
     unread_message.recipient_user_id = ? AND
     unread_message.read_datetime_utc IS NULL
   WHERE user.id != ?
-  GROUP BY user.id, user.username; ");
+  GROUP BY user.id, user.email; ");
 $db_statement->bind_param(
   'ii',
   $sender_user_id,
@@ -41,16 +45,16 @@ $db_statement = $db_connection->prepare("
   SELECT *
   FROM (
     SELECT
-      m.id AS id,
-      m.sender_user_id AS sender_user_id,
-      su.username AS sender,
-      m.content AS content,
-      m.read_datetime_utc AS read_datetime_utc
-    FROM message AS m
-    JOIN user AS su ON m.sender_user_id = su.id
-    WHERE ( m.sender_user_id = ? AND m.recipient_user_id = ? )
-      OR  ( m.recipient_user_id = ? AND m.sender_user_id = ? )
-    ORDER BY m.id DESC LIMIT 10
+      message.id AS id,
+      message.sender_user_id AS sender_user_id,
+      sender_user.email AS sender,
+      message.content AS content,
+      message.read_datetime_utc AS read_datetime_utc
+    FROM message
+    JOIN user AS sender_user ON message.sender_user_id = sender_user.id
+    WHERE ( message.sender_user_id = ? AND message.recipient_user_id = ? )
+      OR  ( message.recipient_user_id = ? AND message.sender_user_id = ? )
+    ORDER BY message.id DESC LIMIT 10
   ) AS last_ten_messages
   ORDER BY id ASC; ");
 $db_statement->bind_param(
@@ -65,13 +69,13 @@ $db_messages = $db_statement->get_result();
 $db_statement->close();
 
 // Update 'read/unread' status
-$db_statement = $db_connection->prepare('
+$db_statement = $db_connection->prepare("
   UPDATE message
   SET read_datetime_utc = UTC_TIMESTAMP()
   WHERE
     read_datetime_utc IS NULL AND
     recipient_user_id = ? AND
-    sender_user_id = ?; ');
+    sender_user_id = ?; ");
 $db_statement->bind_param( 'ii', $sender_user_id, $recipient_user_id );
 $db_statement->execute();
 $db_statement->close();
@@ -82,11 +86,11 @@ $db_connection->close();
 <?php foreach ( $db_contacts as $db_contact ) { ?>
 <?php if ( $db_contact[ 'id' ] == $recipient_user_id ) { ?>
     <article>
-      <strong><?= $db_contact[ 'username' ] ?></strong>
+      <strong><?= $db_contact[ 'email' ] ?></strong>
     </article>
 <?php } else { ?>
     <article>
-      <a href="?r=<?= $db_contact[ 'id' ] ?>"><?= $db_contact[ 'username' ] ?></a>
+      <a href="?r=<?= $db_contact[ 'id' ] ?>"><?= $db_contact[ 'email' ] ?></a>
 <?php if ( $db_contact[ 'unread_count' ] != 0 ) { ?>
       <small><?= $db_contact[ 'unread_count' ] ?></small>
 <?php } ?>

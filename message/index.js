@@ -4,12 +4,12 @@ function receive() {
         if ( request.readyState == 4 && request.status == 200 ) {
             let response, section
 
-            // update contacts
+            // Update contacts
             response = request.responseText.match(/<section\s+id="contacts">[\S\s]*?<\/section>/gi)[0]
             section = document.getElementById( 'contacts' )
             if ( section.outerHTML != response ) section.outerHTML = response
 
-            // update messages
+            // Update messages
             response = request.responseText.match(/<section\s+id="messages">[\S\s]*?<\/section>/gi)[0]
             section = document.getElementById( 'messages' )
             if ( section.outerHTML !== response ) {
@@ -34,11 +34,11 @@ function send( e ) {
         if ( request.readyState == 4 && request.status == 200 ) {
             let control, section
 
-            // update send section
+            // Update send section
             section = document.getElementById( 'send' )
             section.innerHTML = request.responseText
 
-            // focus content textbox
+            // Focus content textbox
             control = document.getElementById( 'content' )
             control.focus()
             receive()

@@ -10,13 +10,12 @@ session_start();
 
 if ( $_SERVER['REQUEST_METHOD'] === 'POST' ) {
   $email_value = htmlentities( $_POST[ 'email' ] );
-  $password_value = htmlentities( $_POST[ 'password' ] );  
+  $password_value = htmlentities( $_POST[ 'password' ] );
   $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
-  $db_statement = $db_connection->prepare('
+  $db_statement = $db_connection->prepare("
     SELECT id
     FROM user
-    WHERE email = ? AND password_hash = PASSWORD( ? );
-  ');
+    WHERE email = ? AND password_hash = PASSWORD( ? ); ");
   $db_statement->bind_param( 'ss', $email_value, $password_value );
   $db_statement->execute();
   $db_users = $db_statement->get_result();

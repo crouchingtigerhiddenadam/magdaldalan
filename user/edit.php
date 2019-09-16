@@ -1,11 +1,11 @@
 <?php
-    
+
 require '../config.php';
 
 $id = htmlentities( $_GET[ 'id' ] );
 
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
-    
+   
   $email_value = htmlentities( $_POST[ 'email' ] );
   $password_value = htmlentities( $_POST[ 'password' ] );
   $valid = true;
@@ -13,12 +13,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   if ( empty($email_value) ) {
     $email_error = 'You need to enter an email address';
     $valid = false;
-  } 
-  
-  //if ( empty($password_value) ) {
-    // $password_error = 'You need to enter a password';
-    // $valid = false;
-  //}
+  }
 
   if ( $valid ) {
     $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
@@ -36,12 +31,13 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
     $db_statement->execute();
     $db_statement->close();
     $db_connection->close();
-
     header( 'Location: index.php' );
     die();
   }
+
 }
 else {
+
   $db_connection = new mysqli( $db_server, $db_username, $db_password, $db_name );
   $db_statement = $db_connection->prepare("
     SELECT email
@@ -53,9 +49,9 @@ else {
   $db_row = $db_result->fetch_assoc();
   $db_statement->close();
   $db_connection->close();
-
   $email_value = $db_row[ 'email' ];
   $password_value = $db_row[ 'password_hash' ];
+
 }
 
 ?>

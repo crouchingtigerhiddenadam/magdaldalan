@@ -1,7 +1,11 @@
 <?php
 
+if ( !isset( $_SESSION ) ) {
+  session_start();
+}
+
 if ( !isset( $_SESSION[ 'user_id' ] ) ) {
-  header( 'Location: ../index.php' );
+  header( 'Location: ../login/' );
   die();
 }
 
@@ -18,7 +22,5 @@ if ( !isset( $_SESSION[ 'user_id' ] ) ) {
 <?php include '_send.php' ?>
   </section>
   <script src="index.js"></script>
-<?php if ( !empty( $recipient_user_id ) ) { ?>
-<?php } ?>
 </body>
 </html>
