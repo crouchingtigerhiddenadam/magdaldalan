@@ -13,7 +13,7 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'GET' ) {
   $db_row = $db_result->fetch_assoc();
   $db_statement->close();
   $db_connection->close();
-  $email = $db_row[ 'email' ];
+  $email_value = $db_row[ 'email' ];
 }
 
 if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
@@ -38,8 +38,8 @@ if ( $_SERVER[ 'REQUEST_METHOD' ] === 'POST' ) {
   <h2>Delete User</h2>
   <form method="POST">
     <fieldset>
-      <label for="email_address">Email Address</label>
-      <input disabled id="email" name="email" readonly type="text" value="<?= $email ?>">
+      <label for="email">Email Address</label>
+      <input disabled id="email" name="email" readonly type="text" value="<?= $email_value ?>">
       <button type="submit">Delete</button>
       <a class="button button-outline" href="index.php">Cancel</a>
     </fieldset>
