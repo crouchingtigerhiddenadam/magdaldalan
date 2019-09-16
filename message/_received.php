@@ -107,12 +107,12 @@ $db_connection->close();
 <?php foreach ( $db_messages as $db_message ) { ?>
 <?php if ( $db_message[ 'sender_user_id' ] == $recipient_user_id ) { ?>
     <article class="received">
-      <h1><?= $db_message[ 'sender'  ] ?></h1>
+      <h1><?= $db_message[ 'sender' ] ?></h1>
       <p><?=  $db_message[ 'content' ] ?></p>
     </article>
 <?php } else { ?>
     <article>
-      <h1><?= $db_message[ 'sender'  ] ?></h1>
+      <h1><?= $db_message[ 'sender' ] ?></h1>
       <p><?=  $db_message[ 'content' ] ?></p>
 <?php if ( isset( $db_message[ 'read_datetime_utc' ] ) ) { ?>
       <small>seen</small>
