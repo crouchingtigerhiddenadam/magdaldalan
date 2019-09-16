@@ -27,7 +27,7 @@ else {
     $db_statement->close();
     $db_connection->close();
 
-    $email = $db_row['email_address'];
+    $email = $db_row[ 'email' ];
     $password = $db_row[ 'password_hash' ];
 }
 

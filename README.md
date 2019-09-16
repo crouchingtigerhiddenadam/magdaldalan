@@ -48,7 +48,7 @@ CREATE TABLE message (
 
 CREATE TABLE user (
     id int UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    email_address nvarchar(100) NOT NULL,
+    email nvarchar(100) NOT NULL,
     password_hash nvarchar(100) NOT NULL
 );
 ```
