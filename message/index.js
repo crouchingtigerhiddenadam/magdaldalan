@@ -48,5 +48,5 @@ function send( e ) {
     return false
 }
 
-setInterval( receive, 5000 )
+setInterval( receive, 500 )
 scroll()
